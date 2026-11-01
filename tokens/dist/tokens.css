@@ -1,0 +1,25 @@
+/* papél tokens: generated from tokens/tokens.json by tokens/build.py. Do not edit by hand. */
+@font-face{font-family:"TeX Gyre Heros";src:url("../../fonts/texgyreheros-regular.otf");font-weight:400;font-display:swap}
+@font-face{font-family:"TeX Gyre Heros";src:url("../../fonts/texgyreheros-bold.otf");font-weight:700;font-display:swap}
+@font-face{font-family:"Courier Prime Papel";src:url("../../fonts/CourierPrimePapel-Bold.ttf");font-weight:700;font-display:swap}
+:root{
+  --papel-paper: #f0ece8;
+  --papel-paper-bitmap: #f7efef;
+  --papel-ink: #000000;
+  --papel-signal: #ff5000;
+  --papel-rule: #b9b6af;
+  --papel-graphite: #7a7772;
+  --papel-font-sans: "TeX Gyre Heros", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --papel-font-mono: "Courier Prime Papel", "Courier Prime", "Courier New", monospace;
+  --papel-space-8: 8px;
+  --papel-space-16: 16px;
+  --papel-space-20: 20px;
+  --papel-space-44: 44px;
+  --papel-radius-0: 0;
+  --papel-radius-dot: 50%;
+  --papel-hairline: 1px;
+  --papel-title-size: 64px; --papel-title-line: 77px; --papel-title-weight: 700;
+  --papel-info-size: 18px; --papel-info-line: 20px; --papel-info-weight: 400;
+  --papel-menu-size: 17px; --papel-menu-line: 17px; --papel-menu-weight: 700;
+  --papel-label-size: 14px; --papel-label-line: 14px; --papel-label-weight: 700;
+}

@@ -1,0 +1,158 @@
+/*
+ * papél ui: framework-free CSS for the papél pieces. No JavaScript.
+ * Load after the tokens:
+ *   <link rel="stylesheet" href="tokens/dist/tokens.css">
+ *   <link rel="stylesheet" href="ui/papel.css">
+ * Scale: everything is drawn at the iPod's 1x sizes (320x240). Set --papel-scale on .papel
+ * (2 for a 640x480 card, 3 for a phone) and every size follows.
+ * c/o Jorge Cuza: MIT (code) / CC BY 4.0 (design). Credit: "papél c/o Jorge Cuza".
+ */
+
+.papel {
+  --k: var(--papel-scale, 1);
+  position: relative;
+  background: var(--papel-paper);
+  color: var(--papel-ink);
+  font-family: var(--papel-font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* A screen / sheet: fixed 320x240 ratio, scaled by --papel-scale */
+.papel-sheet {
+  width: calc(320px * var(--k));
+  height: calc(240px * var(--k));
+  overflow: hidden;
+}
+
+/* The mark lives in ONE fixed slot, top right, on every screen of a set */
+.papel-mark {
+  position: absolute;
+  top: calc(var(--papel-space-8) * var(--k));
+  right: calc(var(--papel-space-16) * var(--k));
+  width: calc(57px * var(--k));
+  height: calc(27px * var(--k));
+}
+.papel-mark img, .papel-mark svg { width: 100%; height: 100%; display: block; }
+
+/* The header ornament slot, top left, on the mark's row (barcode, QR, or a "label") */
+.papel-ornament {
+  position: absolute;
+  top: calc(var(--papel-space-8) * var(--k));
+  left: calc(var(--papel-space-16) * var(--k));
+  height: calc(27px * var(--k));
+  display: flex;
+  align-items: center;
+}
+.papel-ornament img { height: 100%; image-rendering: pixelated; display: block; }
+
+/* One left-aligned column */
+.papel-column {
+  position: absolute;
+  left: calc(var(--papel-space-16) * var(--k));
+  right: calc(var(--papel-space-16) * var(--k));
+  top: calc(var(--papel-space-44) * var(--k));
+}
+
+/* "label": small typewriter subtext in quotes */
+.papel-label {
+  font-family: var(--papel-font-mono);
+  font-weight: var(--papel-label-weight);
+  font-size: calc(var(--papel-label-size) * var(--k));
+  line-height: calc(var(--papel-label-line) * var(--k));
+  text-transform: lowercase;
+  margin: 0;
+}
+.papel-label::before, .papel-label::after { content: '"'; }
+
+/* [menu] item: typewriter, lowercase, in brackets; words_joined_with_underscores in the text itself */
+.papel-menu-item {
+  font-family: var(--papel-font-mono);
+  font-weight: var(--papel-menu-weight);
+  font-size: calc(var(--papel-menu-size) * var(--k));
+  line-height: calc(var(--papel-menu-line) * var(--k));
+  text-transform: lowercase;
+  margin: 0;
+}
+.papel-menu-item::before { content: '['; }
+.papel-menu-item::after { content: ']'; }
+
+/* the one big title on a screen: lowercase, bold, no quotes */
+.papel-title {
+  font-weight: var(--papel-title-weight);
+  font-size: calc(var(--papel-title-size) * var(--k));
+  line-height: calc(var(--papel-title-line) * var(--k));
+  text-transform: lowercase;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* info lines under the title: ONE size, weight and colour, set tight */
+.papel-info {
+  font-size: calc(var(--papel-info-size) * var(--k));
+  line-height: calc(var(--papel-info-line) * var(--k));
+  font-weight: var(--papel-info-weight);
+  margin: 0;
+}
+.papel-info > * { display: block; margin: 0; }
+/* "ARTIST": names in caps, in quotes */
+.papel-name { text-transform: uppercase; }
+.papel-name::before, .papel-name::after { content: '"'; }
+/* C. 1992: put the year in the element, the C. is added */
+.papel-year::before { content: 'C. '; }
+
+/* hairline progress: set --value (0..1) */
+.papel-progress {
+  position: absolute;
+  left: calc(var(--papel-space-16) * var(--k));
+  right: calc(var(--papel-space-16) * var(--k));
+  bottom: calc(29px * var(--k));
+  height: calc(var(--papel-hairline) * var(--k));
+  background: var(--papel-rule);
+}
+.papel-progress::after {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: calc(var(--value, 0) * 100%);
+  background: var(--papel-ink);
+}
+
+/* times / counters row under the progress line */
+.papel-times {
+  position: absolute;
+  left: calc(var(--papel-space-16) * var(--k));
+  right: calc(var(--papel-space-16) * var(--k));
+  bottom: calc(8px * var(--k));
+  display: flex; justify-content: space-between;
+  font-family: var(--papel-font-mono);
+  font-weight: 700;
+  font-size: calc(var(--papel-label-size) * var(--k));
+  line-height: calc(var(--papel-label-line) * var(--k));
+}
+.papel-times .papel-quiet { color: var(--papel-graphite); }
+
+/* corner ticks: crop marks framing a sheet */
+.papel-ticks {
+  --t: calc(7px * var(--k));
+  --i: calc(4px * var(--k));
+  --c: var(--papel-rule);
+  --h: calc(var(--papel-hairline) * var(--k));
+  background:
+    linear-gradient(var(--c), var(--c)) var(--i) var(--i) / var(--t) var(--h),
+    linear-gradient(var(--c), var(--c)) var(--i) var(--i) / var(--h) var(--t),
+    linear-gradient(var(--c), var(--c)) calc(100% - var(--i)) var(--i) / var(--t) var(--h),
+    linear-gradient(var(--c), var(--c)) calc(100% - var(--i)) var(--i) / var(--h) var(--t),
+    linear-gradient(var(--c), var(--c)) var(--i) calc(100% - var(--i)) / var(--t) var(--h),
+    linear-gradient(var(--c), var(--c)) var(--i) calc(100% - var(--i)) / var(--h) var(--t),
+    linear-gradient(var(--c), var(--c)) calc(100% - var(--i)) calc(100% - var(--i)) / var(--t) var(--h),
+    linear-gradient(var(--c), var(--c)) calc(100% - var(--i)) calc(100% - var(--i)) / var(--h) var(--t),
+    var(--papel-paper);
+  background-repeat: no-repeat;
+}
+
+/* a centred code (QR) */
+.papel-center { position: absolute; inset: 0; display: grid; place-items: center; }
+.papel-center img { image-rendering: pixelated; }
+
+/* icons: <svg class="papel-icon"><use href="icons/sprite.svg#papel-play"/></svg> */
+.papel-icon { width: calc(24px * var(--k)); height: calc(24px * var(--k)); color: var(--papel-ink); }
